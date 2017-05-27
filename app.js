@@ -11,21 +11,21 @@ var baseUrl = 'http://api.openweathermap.org/data/2.5/forecast';
 var params = '?q=Bangalore,in&appid=49d8e7beea1072b01928c38091bb31aa&units=metric';
 
 // route that specifies the max and min temperature of the day and the time of occurence.
-app.get('/weather', function (req, res) {
+app.get('/api/weather', function (req, res) {
   request(sampleUrl + sampleParams, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
+    if (!error && response.statusCode == 200) {
     var data = JSON.parse(body);
     var weatherDataList = data["list"];
     weatherResults = calculateTemperature(weatherDataList);
-    res.send(weatherResults);
-  } else {
-  	console.log('some error from weather api');
-  }
+    res.send(weatherResults); 
+    } else {
+    	console.log('some error from weather api');
+    }
   })
 })
 
 // route that specifies the max and min temperature of the day and the time of occurence.
-app.get('/weather/view', function (req, res) {
+app.get('/view/weather', function (req, res) {
   request(sampleUrl + sampleParams, function (error, response, body) {
   if (!error && response.statusCode == 200) {
     var data = JSON.parse(body);
@@ -42,7 +42,7 @@ app.get('/weather/view', function (req, res) {
 })
 
 // route that gives temperature in asc sorted manner
-app.get('/weather/sorted', function (req, res) {
+app.get('/api/weather/sorted', function (req, res) {
   request(sampleUrl + sampleParams, function (error, response, body) {
   if (!error && response.statusCode == 200) {
     var data = JSON.parse(body);
@@ -55,12 +55,32 @@ app.get('/weather/sorted', function (req, res) {
   })
 })
 
+// temperture plot
+app.get('/view/weather/plot', function (req, res) {
+  
+  request(sampleUrl + sampleParams, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+    var data = JSON.parse(body);
+    var weatherDataList = data["list"];
+    chartDataList = prepareChartData(weatherDataList);
+    res.render('pages/temperature_plot', {
+      'chartData': chartDataList["chartData"],
+      'labelData': chartDataList["labelData"]
+    });
+    } else {
+      console.log('some error from weather api');
+    }
+  })
+})
+
+
+
+
 // function to calculate min,max temperature for a given day.
 function calculateTemperature(weatherDataList) {
     var weatherResults = {};
     for (var index in weatherDataList) {
-    	weatherData = weatherDataList[index];
-
+    	var weatherData = weatherDataList[index];
     	var time = weatherData["dt"];
     	var date = new Date(time*1000);
     	var dateKey = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
@@ -132,6 +152,24 @@ function redressToList(weatherResults) {
   }
   return formattedWeatherResultsList;
 }
+
+function prepareChartData(weatherResults) {
+  var labelData = [];
+  var chartData = [];
+  for (index in weatherResults) {
+    weatherData = weatherResults[index];
+    var time = weatherData["dt"];
+    weatherData = weatherResults[index];
+    labelData.push(time);
+    chartData.push(weatherData['main']['temp']);
+  }
+  console.log(labelData);
+  return {
+    'chartData': chartData,
+    'labelData': labelData
+  }
+} 
+
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
