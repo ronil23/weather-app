@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const request = require('request');
+app.set('view engine', 'ejs');
 
 //sample api params
 var sampleUrl = 'http://samples.openweathermap.org/data/2.5/forecast';
@@ -19,6 +20,23 @@ app.get('/weather', function (req, res) {
     res.send(weatherResults);
   } else {
   	console.log('some error from weather api');
+  }
+  })
+})
+
+// route that specifies the max and min temperature of the day and the time of occurence.
+app.get('/weather/view', function (req, res) {
+  request(sampleUrl + sampleParams, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var data = JSON.parse(body);
+    var weatherDataList = data["list"];
+    var weatherResults = calculateTemperature(weatherDataList);
+    var weatherViewData = redressToList(weatherResults);
+    res.render('pages/temperature', {
+      weatherData: weatherViewData
+    });
+  } else {
+    console.log('some error from weather api');
   }
   })
 })
@@ -99,6 +117,20 @@ function sortTemperatures(weatherDataList) {
 //function to compare temperatures
 function temperatureCompare(weatherA, weatherB) {
 	return (weatherA['main']['temp'] - weatherB['main']['temp']);
+}
+
+function redressToList(weatherResults) {
+  var dateKeys = Object.keys(weatherResults);
+  var formattedWeatherResultsList = [];
+  for (index in dateKeys) {
+    weatherObj = {
+      'min': weatherResults[dateKeys[index]]['min'],
+      'max': weatherResults[dateKeys[index]]['max'],
+      'day': dateKeys[index]
+    }
+    formattedWeatherResultsList.push(weatherObj);
+  }
+  return formattedWeatherResultsList;
 }
 
 app.listen(3000, function () {

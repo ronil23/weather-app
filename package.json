@@ -1,5 +1,5 @@
 {
-  "name": "weather_lift_off",
+  "name": "weather-app",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -13,5 +13,9 @@
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "repository" : { 
+   "type" : "git",
+   "url" : "https://github.com/ronil23/weather-app.git"
+ }
 }

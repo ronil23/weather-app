@@ -1,0 +1,16 @@
+<html>
+	<% weatherData.forEach(function(weather){ %>
+		<div>
+		<p> <b>Day: <%=weather.day%></b></p>
+		</div>
+		<div style="color:red">
+			<p>Max Temperature: <b><%=weather.max.temperature%></b></p>
+			<p>Time: <%=weather.max.time%> </p> 
+		</div>
+		<div style="color:deepskyblue">
+			<p>Min Temperature: <b><%=weather.min.temperature%></b></p>
+			<p>Time: <%=weather.max.time%> </p>
+		</div>
+	<% }) %>
+</html>
+
