@@ -73,9 +73,6 @@ app.get('/view/weather/plot', function (req, res) {
   })
 })
 
-
-
-
 // function to calculate min,max temperature for a given day.
 function calculateTemperature(weatherDataList) {
     var weatherResults = {};
@@ -139,6 +136,7 @@ function temperatureCompare(weatherA, weatherB) {
 	return (weatherA['main']['temp'] - weatherB['main']['temp']);
 }
 
+//function to redress data for sending to view
 function redressToList(weatherResults) {
   var dateKeys = Object.keys(weatherResults);
   var formattedWeatherResultsList = [];
@@ -153,12 +151,13 @@ function redressToList(weatherResults) {
   return formattedWeatherResultsList;
 }
 
+//function to prepare chart data
 function prepareChartData(weatherResults) {
   var labelData = [];
   var chartData = [];
   for (index in weatherResults) {
     weatherData = weatherResults[index];
-    var time = weatherData["dt"];
+    var time = weatherData["dt_txt"];
     weatherData = weatherResults[index];
     labelData.push(time);
     chartData.push(weatherData['main']['temp']);
