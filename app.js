@@ -159,7 +159,6 @@ function prepareChartData(weatherResults) {
     labelData.push(time);
     chartData.push(weatherData['main']['temp']);
   }
-  console.log(labelData);
   return {
     'chartData': chartData,
     'labelData': labelData
