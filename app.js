@@ -8,7 +8,7 @@ var sampleUrl = 'http://samples.openweathermap.org/data/2.5/forecast';
 var sampleParams = '?q=M%C3%BCnchen,DE&appid=b1b15e88fa797225412429c1c50c122a1'	
 
 // route that specifies the max and min temperature of the day and the time of occurence.
-app.get('/api/weather', function (req, res) {
+app.get('/api/temperature', function (req, res) {
   request(sampleUrl + sampleParams, function (error, response, body) {
     if (!error && response.statusCode == 200) {
     var data = JSON.parse(body);
@@ -22,7 +22,7 @@ app.get('/api/weather', function (req, res) {
 })
 
 // route that specifies the max and min temperature of the day and the time of occurence.
-app.get('/view/weather', function (req, res) {
+app.get('/view/temperature', function (req, res) {
   request(sampleUrl + sampleParams, function (error, response, body) {
   if (!error && response.statusCode == 200) {
     var data = JSON.parse(body);
@@ -39,7 +39,7 @@ app.get('/view/weather', function (req, res) {
 })
 
 // route that gives temperature in asc sorted manner
-app.get('/api/weather/sorted', function (req, res) {
+app.get('/api/temperature/sorted', function (req, res) {
   request(sampleUrl + sampleParams, function (error, response, body) {
   if (!error && response.statusCode == 200) {
     var data = JSON.parse(body);
@@ -53,7 +53,7 @@ app.get('/api/weather/sorted', function (req, res) {
 })
 
 // temperture plot
-app.get('/view/weather/plot', function (req, res) {
+app.get('/view/temperature/plot', function (req, res) {
   
   request(sampleUrl + sampleParams, function (error, response, body) {
     if (!error && response.statusCode == 200) {
