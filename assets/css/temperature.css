@@ -1,0 +1,25 @@
+.holder-box {
+	border: 2px solid grey;
+    width: 20%;
+    padding-left: 1%;
+    margin-bottom: 0.5%;
+    font-family: sans-serif;
+    color: grey;
+}
+
+.day-box{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.temperature-box{
+	font-size: 14px;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+.db{
+	color: darkblue;
+}

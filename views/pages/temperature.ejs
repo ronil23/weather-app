@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<link href="/css/temperature.css" rel="stylesheet" type="text/css">
+</head>
 	<% weatherData.forEach(function(weather){ %>
-		<div>
-		<p> <b>Day: <%=weather.day%></b></p>
-		</div>
-		<div style="color:red">
-			<p>Max Temperature: <b><%=weather.max.temperature%></b></p>
-			<p>Time: <%=weather.max.time%> </p> 
-		</div>
-		<div style="color:deepskyblue">
-			<p>Min Temperature: <b><%=weather.min.temperature%></b></p>
-			<p>Time: <%=weather.max.time%> </p>
+		<div class="holder-box">
+			<div class="day-box">
+			<p> Day: <%=weather.day%></p>
+			</div>
+			<div class="temperature-box">
+				<p><span class="bold"> Max Temperature: </span><span style="color:red"><%=weather.max.temperature%></span> </p>
+				<p><span class="bold">Time: </span><span class="db"><%=weather.max.time%></span></p> 
+			</div>
+			<div class="temperature-box">
+				<p><span class="bold"> Min Temperature: </span><span style="color:deepskyblue"><%=weather.min.temperature%></span></p>
+				<p><span class="bold">Time: </span><span class="db"><%=weather.max.time%> </span></p>
+			</div>
 		</div>
 	<% }) %>
 </html>
