@@ -6,9 +6,6 @@ app.set('view engine', 'ejs');
 //sample api params
 var sampleUrl = 'http://samples.openweathermap.org/data/2.5/forecast';
 var sampleParams = '?q=M%C3%BCnchen,DE&appid=b1b15e88fa797225412429c1c50c122a1'	
-//actual params for bangalore city
-var baseUrl = 'http://api.openweathermap.org/data/2.5/forecast';
-var params = '?q=Bangalore,in&appid=49d8e7beea1072b01928c38091bb31aa&units=metric';
 
 // route that specifies the max and min temperature of the day and the time of occurence.
 app.get('/api/weather', function (req, res) {
